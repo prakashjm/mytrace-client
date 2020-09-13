@@ -1,0 +1,114 @@
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createUser } from "../../actions/userAction";
+import classnames from "classnames";
+
+class Register extends Component {
+  constructor() {
+    super();
+    console.log("hai");
+
+    this.state = {
+      email: "",
+      password: "",
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      mobile: "",
+      errors: {}
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  //life cycle hooks
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+ 
+  onSubmit(e) {
+    e.preventDefault();
+    const newUser = {
+      email: this.state.email,
+      firstName: this.state.firstName,
+      middleName: this.state.middleName,
+      lastNamew: this.state.lastNamew,
+      mobile: this.state.mobile
+    };
+    this.props.createUser(newUser, this.props.history);
+  }
+  
+
+  render() {
+    const { errors } = this.state;
+
+    return (
+      <body> 
+      <div className="limiter">
+      <div className="container-login100">
+      <div className="wrap-login100 p-b-20">
+      <form className="login100-form validate-form">
+<span className="login100-form-title p-b-70">
+Register
+</span> 
+ 
+
+<div className="wrap-input100 validate-input   m-b-50" data-validate="Enter Email" >
+<input className="input100" type="text" name="email" placeholder="Enter Email"/>
+</div>
+
+<div className="wrap-input100 validate-input   m-b-50" data-validate="Enter password">
+<input className="input100" type="password" name="pass" placeholder="Enter Password"/>
+ </div>
+
+<div className="wrap-input100 validate-input   m-b-50" data-validate="Enter first Name">
+<input className="input100" type="text" name="firstName" placeholder="Enter First Name"/>
+</div>
+
+<div className="wrap-input100 validate-input  m-b-50" data-validate="Enter Middle Name">
+<input className="input100" type="text" name="middleName" placeholder="Enter Middle Name" />
+</div>
+
+
+<div className="wrap-input100 validate-input  m-b-35" data-validate="Enter Last Name">
+<input className="input100" type="text" name="lastNamew" placeholder="Enter Last Name"/>
+</div>
+
+<div className="wrap-input100 validate-input  m-b-35" data-validate="Enter Mobile">
+<input className="input100" type="text" name="mobile"  placeholder="Enter Mobile Number"/>
+ </div>
+
+ <div className="container-login100-form-btn">
+<button className="login100-form-btn">
+Login
+</button>
+</div>
+
+
+
+</form>
+
+      </div></div></div>
+     </body>
+    );
+  }
+}
+/*</div>
+Login.propTypes = {
+  createProject: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors
+});
+*/
+export default Register;
